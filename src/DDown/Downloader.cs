@@ -69,7 +69,11 @@ namespace DDown
             if (_options.PartitionCount <= 0)
                 throw new ArgumentOutOfRangeException(nameof(_options.PartitionCount));
 
-            _fileName = FileHelper.GetFileName(_uri);
+            if (string.IsNullOrWhiteSpace(options.Name))
+                _fileName = FileHelper.GetFileName(_uri);
+            else
+                _fileName = options.Name;
+
             _fullPath = Path.Combine(_options.OutputFolder, _fileName);
             _originalName = Path.GetFileNameWithoutExtension(_fileName);
             //Ensure the necessary folders are created
